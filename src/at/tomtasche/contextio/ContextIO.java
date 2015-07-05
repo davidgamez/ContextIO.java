@@ -40,7 +40,7 @@ public class ContextIO {
 		this.secret = secret;
 		this.ssl = true;
 		this.saveHeaders = false;
-		this.apiVersion = "1.1";
+		this.apiVersion = "2.0";
 	}
 
 
@@ -228,8 +228,9 @@ public class ContextIO {
 	public ContextIOResponse imap_discover(Map<String, String> params) {
 		// TODO: differs from original implementiation
 		params = filterParams(params, new String[] {"email"});
-
-		return get("", "imap/discover.json", params);
+		params.put("source_type", "IMAP");
+		
+		return get("", "discovery", params);
 	}
 
 	/**
