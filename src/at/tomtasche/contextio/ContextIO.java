@@ -19,14 +19,14 @@ import org.scribe.utils.URLUtils;
  */
 public class ContextIO {
 
-	private static final String ENDPOINT = "api.context.io";
-	private static final String API_VERSION = "2.0"; 
-	String key;
-	String secret;
-	boolean ssl;
-	boolean saveHeaders;
-	boolean authHeaders;
-	ContextIOResponse lastResponse;
+	public static final String ENDPOINT = "api.context.io";
+	public static final String API_VERSION = "2.0"; 
+	protected String key;
+	protected String secret;
+	protected boolean ssl;
+	protected boolean saveHeaders;
+	protected boolean authHeaders;
+	protected ContextIOResponse lastResponse;
 
 	/**
 	 * Instantiate a new ContextIO object. Your OAuth consumer key and secret can be
