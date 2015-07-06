@@ -19,11 +19,10 @@ import org.scribe.utils.URLUtils;
  */
 public class ContextIO {
 
-	static final String ENDPOINT = "api.context.io";
-
+	private static final String ENDPOINT = "api.context.io";
+	private static final String API_VERSION = "2.0"; 
 	String key;
 	String secret;
-	String apiVersion;
 	boolean ssl;
 	boolean saveHeaders;
 	boolean authHeaders;
@@ -40,9 +39,23 @@ public class ContextIO {
 		this.secret = secret;
 		this.ssl = true;
 		this.saveHeaders = false;
-		this.apiVersion = "2.0";
 	}
 
+
+	/**
+	 * Instantiate a new ContextIO object. Your OAuth consumer key and secret can be
+	 * found under the "settings" tab of the developer console (https://console.context.io/#settings)
+	 * @param key Your Context.IO OAuth consumer key
+	 * @param secret Your Context.IO OAuth consumer secret
+	 * @param ssl true if the connection to contextio will be under SSL protocol, false otherwise
+	 * @param saveHeaders true if 
+	 */
+	public ContextIO(String key, String secret, boolean ssl, boolean saveHeaders) {
+		this.key = key;
+		this.secret = secret;
+		this.ssl = ssl;
+		this.saveHeaders = saveHeaders;
+	}
 
 	/**
 	 * Returns the 20 contacts with whom the most emails were exchanged.
@@ -380,26 +393,8 @@ public class ContextIO {
 		return ssl;
 	}
 
-	/**
-	 * Specify whether or not API calls should be made over a secure connection. 
-	 * HTTPS is used on all calls by default.
-	 * @param sslOn Set to false to make calls over HTTP, true to use HTTPS
-	 */
-	public void setSsl(boolean ssl) {
-		this.ssl = ssl;
-	}
-
 	public String getApiVersion() {
-		return apiVersion;
-	}
-
-	/**
-	 * Set the API version. By default, the latest official version will be used
-	 * for all calls.
-	 * @param apiVersion Context.IO API version to use
-	 */
-	public void setApiVersion(String apiVersion) {
-		this.apiVersion = apiVersion;
+		return API_VERSION;
 	}
 
 	public boolean isAuthHeaders() {
@@ -429,7 +424,7 @@ public class ContextIO {
 			url = "https";
 		}
 
-		return url + "://" + ENDPOINT + "/" + apiVersion + '/';
+		return url + "://" + ENDPOINT + "/" + API_VERSION + '/';
 	}
 
 	public String build_url(String action) {
