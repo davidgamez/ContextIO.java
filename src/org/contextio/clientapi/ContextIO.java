@@ -1,4 +1,4 @@
-package at.tomtasche.contextio;
+package org.contextio.clientapi;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package at.tomtasche.contextio;
+package org.contextio.clientapi;
 
 import org.scribe.builder.api.DefaultApi10a;
 import org.scribe.model.Token;

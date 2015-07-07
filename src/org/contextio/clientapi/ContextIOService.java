@@ -1,7 +1,7 @@
 /**
  * 
  */
-package at.tomtasche.contextio;
+package org.contextio.clientapi;
 
 import java.util.Map;
 
