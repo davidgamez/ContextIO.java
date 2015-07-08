@@ -554,7 +554,7 @@ public class ContextIO {
 	}
 
 	public ContextIOResponse post(String account, String action,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		return doCall(Verb.POST, account, action, params);
 	}
 
@@ -596,7 +596,7 @@ public class ContextIO {
 
 		lastResponse = new ContextIOResponse(oauthResponse.getCode(),
 				request.getHeaders(), oauthResponse.getHeaders(), oauthResponse);
-		if (lastResponse.hasError) {
+		if (lastResponse.isHasError()) {
 			return null;
 		} else {
 			return lastResponse;

@@ -20,6 +20,13 @@
 			<artifactId>scribe</artifactId>
 			<version>1.2.1</version>
 		</dependency>
+		
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
