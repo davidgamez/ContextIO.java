@@ -83,6 +83,7 @@ public class ContextIOService extends ContextIO {
 	}
 	String action = MessageFormat.format("accounts/{0}/sources", accountId);
 	ContextIOResponse response = get("", action, params);
+	
 	List<AccountSource> result = new ArrayList<AccountSource>();
 	JsonArray jsonArray = response.getJson().getAsJsonArray();
 	if (!jsonArray.isJsonNull() && jsonArray.size() > 0){
