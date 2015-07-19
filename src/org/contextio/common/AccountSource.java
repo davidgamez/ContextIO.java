@@ -6,9 +6,11 @@ package org.contextio.common;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Account source class. 
- * @author David
+ * @author David Gamez
  *
  */
 public class AccountSource implements ParametersMapeable{
@@ -23,8 +25,8 @@ public class AccountSource implements ParametersMapeable{
 	
 	/** Optional parameters when adding an account source **/
 	private String originIp;
-	private Boolean expungeOnDeletedFlag;
-	private Boolean syncAllFolders;
+	private Boolean expungeOnDeletedFlag = false;
+	private Boolean syncAllFolders = true;
 	private String syncFolders;
 	private String syncFlags;
 	private String rawFileList;
@@ -43,8 +45,34 @@ public class AccountSource implements ParametersMapeable{
 		result.put("use_ssl", useSsl?"1":"0");
 		result.put("port", port);
 		result.put("type", type.name());
-		// TODO DGD add optional parameters
+		// optional parameters
 		result.put("password", password);
+		if (StringUtils.isNotBlank(originIp)){
+		    result.put("origin_ip", originIp);    
+		}
+		result.put("expunge_on_deleted_flag", expungeOnDeletedFlag?"1":"0");
+		result.put("sync_all_folders", syncAllFolders?"1":"0");
+		if (StringUtils.isNotBlank(syncFolders)){
+		    result.put("sync_folders", syncFolders);
+		}
+		if (StringUtils.isNotBlank(syncFlags)){
+		    result.put("sync_flags", syncFlags);
+		}
+		if (StringUtils.isNotBlank(rawFileList)){
+		    result.put("raw_file_list", rawFileList);
+		}
+		if (StringUtils.isNotBlank(providerRefreshToken)){
+		    result.put("provider_refresh_token", providerRefreshToken);
+		}
+		if (StringUtils.isNotBlank(providerConsumerKey)){
+		    result.put("provider_consumer_key", providerConsumerKey);
+		}
+		if (StringUtils.isNotBlank(callbackUrl)){
+		    result.put("callback_url", callbackUrl);
+		}
+		if (StringUtils.isNotBlank(statusCallbackUrl)){
+		    result.put("status_callback_url", statusCallbackUrl);
+		}
 		return result;
 	}
 
