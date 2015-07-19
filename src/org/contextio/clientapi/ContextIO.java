@@ -75,8 +75,9 @@ public class ContextIO {
 	 * @param account
 	 *            accountId or email address of the mailbox you want to query
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
-	public ContextIOResponse addresses(String account) {
+	public ContextIOResponse addresses(String account) throws Exception {
 		return get(account, "adresses.json", null);
 	}
 
@@ -90,8 +91,9 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: since, limit
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
-	public ContextIOResponse allFiles(String account, Map<String, String> params) {
+	public ContextIOResponse allFiles(String account, Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "since", "limit" });
 
 		return get(account, "allfiles.json", params);
@@ -108,9 +110,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: since, limit
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse allMessages(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "since", "limit" });
 
 		return get(account, "allmessages.json", params);
@@ -127,9 +130,10 @@ public class ContextIO {
 	 *            Query parameters for the API call: 'email', 'to', 'from',
 	 *            'cc', 'bcc', 'limit'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse contactFiles(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "email", "to", "from",
 				"cc", "bcc", "limit" });
 
@@ -149,9 +153,10 @@ public class ContextIO {
 	 *            Query parameters for the API call: 'email', 'to', 'from',
 	 *            'cc', 'bcc', 'limit'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse contactMessages(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "email", "to", "from",
 				"cc", "bcc", "limit" });
 
@@ -167,9 +172,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'search'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse contactSearch(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "search" });
 
 		return get(account, "contactsearch.json", params);
@@ -185,9 +191,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'fileId1', 'fileId2'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse diffSummary(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "fileId1", "fileId2" });
 
 		params.put("generate", "1");
@@ -224,9 +231,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'fileId', 'fileName'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse fileRevisions(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "fileid", "filename" });
 
 		return get(account, "filerevisions.json", params);
@@ -243,9 +251,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'fileId', 'fileName'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse relatedFiles(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "fileid", "filename" });
 
 		return get(account, "relatedfiles.json", params);
@@ -259,9 +268,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'fileName'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse fileSearch(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "filename" });
 
 		return get(account, "filesearch.json", params);
@@ -269,9 +279,10 @@ public class ContextIO {
 
 	/**
 	 *
+	 * @throws Exception 
 	 * @link http://context.io/docs/1.1/imap/accountinfo
 	 */
-	public ContextIOResponse imap_accountInfo(Map<String, String> params) {
+	public ContextIOResponse imap_accountInfo(Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "email", "userid" });
 
 		return get("", "imap/accountinfo.json", params);
@@ -284,8 +295,9 @@ public class ContextIO {
 	 *            'username', 'password', 'oauthconsumername', 'oauthtoken',
 	 *            'oauthtokensecret', 'usessl', 'port'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
-	public ContextIOResponse imap_addAccount(Map<String, String> params) {
+	public ContextIOResponse imap_addAccount(Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "email", "server",
 				"username", "oauthconsumername", "oauthtoken",
 				"oauthtokensecret", "password", "usessl", "port", "firstname",
@@ -301,8 +313,9 @@ public class ContextIO {
 	 * @param params
 	 *            either a string or assoc array with email as its key
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
-	public ContextIOResponse imap_discover(Map<String, String> params) {
+	public ContextIOResponse imap_discover(Map<String, String> params) throws Exception {
 		// TODO: differs from original implementiation
 		params = filterParams(params, new String[] { "email" });
 		params.put("source_type", "IMAP");
@@ -317,9 +330,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'credentials', 'mailboxes'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse imap_modifyAccount(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params,
 				new String[] { "credentials", "mailboxes" });
 
@@ -331,9 +345,10 @@ public class ContextIO {
 	 * 
 	 * @link http://context.io/docs/1.1/imap/removeaccount
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse imap_removeAccount(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "label" });
 
 		return get(account, "imap/removeaccount.json", params);
@@ -346,9 +361,10 @@ public class ContextIO {
 	 * 
 	 * @link http://context.io/docs/1.1/imap/resetstatus
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse imap_resetStatus(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "label" });
 
 		return get(account, "imap/resetstatus.json", params);
@@ -356,9 +372,10 @@ public class ContextIO {
 
 	/**
 	 *
+	 * @throws Exception 
 	 * @link http://context.io/docs/1.1/imap/oauthproviders
 	 */
-	public ContextIOResponse imap_deleteOAuthProvider(Map<String, String> params) {
+	public ContextIOResponse imap_deleteOAuthProvider(Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "key" });
 
 		params.put("action", "delete");
@@ -368,9 +385,10 @@ public class ContextIO {
 
 	/**
 	 *
+	 * @throws Exception 
 	 * @link http://context.io/docs/1.1/imap/oauthproviders
 	 */
-	public ContextIOResponse imap_setOAuthProvider(Map<String, String> params) {
+	public ContextIOResponse imap_setOAuthProvider(Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "type", "key", "secret" });
 
 		return get("", "imap/oauthproviders.json", params);
@@ -378,9 +396,10 @@ public class ContextIO {
 
 	/**
 	 *
+	 * @throws Exception 
 	 * @link http://context.io/docs/1.1/imap/oauthproviders
 	 */
-	public ContextIOResponse imap_getOAuthProviders(Map<String, String> params) {
+	public ContextIOResponse imap_getOAuthProviders(Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "key" });
 
 		return get("", "imap/oauthproviders.json", params);
@@ -398,9 +417,10 @@ public class ContextIO {
 	 *            Query parameters for the API call: 'emailMessageId', 'from',
 	 *            'dateSent',
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse messageHeaders(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "emailmessageid", "from",
 				"datesent" });
 
@@ -419,9 +439,10 @@ public class ContextIO {
 	 *            Query parameters for the API call: 'emailMessageId', 'from',
 	 *            'dateSent', 'server', 'mbox', 'uid'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse messageInfo(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "emailmessageid", "from",
 				"datesent", "server", "mbox", "uid" });
 
@@ -440,9 +461,10 @@ public class ContextIO {
 	 *            Query parameters for the API call: 'emailMessageId', 'from',
 	 *            'dateSent','type
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse messageText(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "emailmessageid", "from",
 				"datesent", "type" });
 
@@ -458,8 +480,9 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'subject', 'limit'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
-	public ContextIOResponse search(String account, Map<String, String> params) {
+	public ContextIOResponse search(String account, Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "subject", "limit" });
 
 		return get(account, "search.json", params);
@@ -474,9 +497,10 @@ public class ContextIO {
 	 * @param params
 	 *            Query parameters for the API call: 'gmailthreadid'
 	 * @return ContextIOResponse
+	 * @throws Exception 
 	 */
 	public ContextIOResponse threadInfo(String account,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		params = filterParams(params, new String[] { "gmailthreadid",
 				"emailmessageid" });
 
@@ -549,7 +573,7 @@ public class ContextIO {
 	}
 
 	public ContextIOResponse get(String account, String action,
-			Map<String, String> params) {
+			Map<String, String> params) throws Exception {
 		return doCall(Verb.GET, account, action, params);
 	}
 

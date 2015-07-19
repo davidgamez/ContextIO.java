@@ -19,7 +19,7 @@ public class AccountSource implements ParametersMapeable{
 	private String username;
 	private boolean useSsl;
 	private String port;
-	private AccountSourceType type = AccountSourceType.IMAP;
+	private AccountSourceType type = AccountSourceType.imap;
 	
 	/** Optional parameters when adding an account source **/
 	private String originIp;

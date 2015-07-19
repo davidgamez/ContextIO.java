@@ -10,5 +10,5 @@ package org.contextio.common;
  */
 public enum AccountSourceType {
 
-	IMAP
+	imap
 }
