@@ -9,12 +9,12 @@ package org.contextio.clientapi;
  */
 public class ContextIOResponseMessage {
 
-	public String type;
+    public String type;
     public Integer code;
     public String value;
-    
+
     @Override
     public String toString() {
-        return type + "(" + code + "): " + value;
+	return type + "(" + code + "): " + value;
     }
 }

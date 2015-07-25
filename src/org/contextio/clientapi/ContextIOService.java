@@ -8,11 +8,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.contextio.common.Account;
 import org.contextio.common.AccountSource;
 import org.contextio.common.AccountSourceStatus;
+import org.contextio.common.EmailMessage;
+import org.contextio.common.EmailMessageFilter;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -27,7 +31,7 @@ import com.google.gson.JsonElement;
  */
 public class ContextIOService extends ContextIO {
 
-    private Gson prettyGson = new GsonBuilder().setPrettyPrinting().create();
+    private Gson gson = new GsonBuilder().setPrettyPrinting().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
     
     /**
      * 
@@ -82,17 +86,9 @@ public class ContextIOService extends ContextIO {
 	    params.put("status", accountSourceStatus.name());
 	}
 	String action = MessageFormat.format("accounts/{0}/sources", accountId);
-	ContextIOResponse response = get("", action, params);
+	ContextIOResponse response = get(accountId, action, params);
 	
-	List<AccountSource> result = new ArrayList<AccountSource>();
-	JsonArray jsonArray = response.getJson().getAsJsonArray();
-	if (!jsonArray.isJsonNull() && jsonArray.size() > 0){
-	    for (int i = 0; i < jsonArray.size(); i++){
-		JsonElement jsonSource = jsonArray.get(i);
-		result.add(prettyGson.fromJson(jsonSource, AccountSource.class));
-	    }
-	}
-	return result;
+	return getListFromResponse(response, AccountSource.class);
     }
 
     /**
@@ -108,6 +104,37 @@ public class ContextIOService extends ContextIO {
 	return response.getJson().getAsJsonObject().get("id").getAsString();
     }
 
+    public List<EmailMessage> getMessages(String accountId, Map<EmailMessageFilter, String> filterParams) throws Exception{
+	String action = MessageFormat.format("accounts/{0}/messages", accountId);
+	Map<String, String> params = new HashMap<String, String>();
+	if (filterParams != null){
+	    for (Entry<EmailMessageFilter, String> filterParam: filterParams.entrySet()){
+		params.put(filterParam.getKey().getFilterName(), filterParam.getValue());
+	    }
+	}
+	ContextIOResponse response = get(accountId, action, params);
+	
+	return getListFromResponse(response, EmailMessage.class);
+    }
+
+    /**
+     * 
+     * @param response to extract the list of instances
+     * @param t class of the generic parameter
+     * @return the list of instances with instances of the given generic class T 
+     */
+    protected <T> List<T> getListFromResponse(ContextIOResponse response, Class<T> t) {
+	List<T> result = new ArrayList<T>();
+	JsonArray jsonArray = response.getJson().getAsJsonArray();
+	if (!jsonArray.isJsonNull() && jsonArray.size() > 0){
+	    for (int i = 0; i < jsonArray.size(); i++){
+		JsonElement jsonSource = jsonArray.get(i);
+		result.add(gson.fromJson(jsonSource, t));
+	    }
+	}
+	return result;
+    }
+    
     /*
      * (non-Javadoc)
      * 
