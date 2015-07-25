@@ -126,6 +126,10 @@ public class ContextIOServiceTest {
 	return service.getAccountSources("dummyId", null);
     }
 
+    /**
+     * Test related to {@link ContextIOService#getMessages(String, Map)}
+     * @throws Exception
+     */
     @Test
     public void testGetMessages() throws Exception{
 	ContextIOService service = PowerMock.createPartialMockForAllMethodsExcept(ContextIOService.class,
@@ -146,10 +150,15 @@ public class ContextIOServiceTest {
 	
 	Assert.assertNotNull(messages);
 	
-	assertMessages(messages, jsonArray);
+	validateMessages(messages, jsonArray);
     }
     
-    private void assertMessages(List<EmailMessage> messages, JsonArray jsonArray) {
+    /**
+     * Validate the message list created based on its origin JSON array object
+     * @param messages list 
+     * @param jsonArray array
+     */
+    private void validateMessages(List<EmailMessage> messages, JsonArray jsonArray) {
 	Assert.assertTrue(messages.size() == jsonArray.size());
 //	sorting the lists first to be able to compare later with the same sorting criteria
 	Collections.sort(messages, new Comparator<EmailMessage>() {
