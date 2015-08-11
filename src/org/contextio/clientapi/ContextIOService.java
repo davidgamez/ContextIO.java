@@ -5,16 +5,22 @@ package org.contextio.clientapi;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.contextio.common.Account;
 import org.contextio.common.AccountSource;
 import org.contextio.common.AccountSourceStatus;
 import org.contextio.common.EmailMessage;
+import org.contextio.common.EmailMessageBodyPart;
 import org.contextio.common.EmailMessageFilter;
+import org.contextio.common.EmailMessageFullBody;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -104,6 +110,13 @@ public class ContextIOService extends ContextIO {
 	return response.getJson().getAsJsonObject().get("id").getAsString();
     }
 
+    /**
+     * 
+     * @param accountId account identifier 
+     * @param filterParams filters
+     * @return the list of messages that match with the filters <code>filterParams</code>
+     * @throws Exception
+     */
     public List<EmailMessage> getMessages(String accountId, Map<EmailMessageFilter, String> filterParams) throws Exception{
 	String action = MessageFormat.format("accounts/{0}/messages", accountId);
 	Map<String, String> params = new HashMap<String, String>();
@@ -117,6 +130,34 @@ public class ContextIOService extends ContextIO {
 	return getListFromResponse(response, EmailMessage.class);
     }
 
+    public EmailMessageFullBody getEmailFullBody(String accountId, String messageId, String type) throws Exception{
+	String action = MessageFormat.format("accounts/{0}/messages/{1}/body", accountId, messageId);
+	if (StringUtils.isNotBlank(type)){
+	    action += "?type=" + type; 
+	}
+	ContextIOResponse response = get(accountId, action, null);
+	
+	List<EmailMessageBodyPart> bodyParts = getListFromResponse(response, EmailMessageBodyPart.class);
+//	TODO DGD this is a simplified solution, needs to be reviewed 
+	EmailMessageFullBody result = new EmailMessageFullBody();
+	Collections.sort(bodyParts, new Comparator<EmailMessageBodyPart>(){
+	    @Override
+	    public int compare(EmailMessageBodyPart o1, EmailMessageBodyPart o2) {
+		return Integer.valueOf(o1.getBodySection()).compareTo(Integer.valueOf(o1.getBodySection()));
+	    }
+	});
+	StringBuffer buffer = new StringBuffer();
+	for (EmailMessageBodyPart part: bodyParts){
+	    buffer.append(part.getContent());
+	}
+	result.setContent(buffer.toString());
+	if (CollectionUtils.isNotEmpty(bodyParts)){
+	    result.setCharset(bodyParts.get(0).getCharset());
+	    result.setType(bodyParts.get(0).getType());
+	}
+	return result;
+    }
+    
     /**
      * 
      * @param response to extract the list of instances
