@@ -56,9 +56,9 @@
                "email":"dummy@yahoo.com"
             }
          ],
-         "reply_to":{  
+         "reply_to":[{  
             "email":"replies@communications.yahoo.com"
-         }
+         }]
       },
       "sources":[  
          {  
@@ -99,9 +99,9 @@
                "email":"dummy@yahoo.com"
             }
          ],
-         "reply_to":{  
+         "reply_to":[{  
             "email":"replies@communications.yahoo.com"
-         }
+         }]
       },
       "sources":[  
          {  
@@ -142,9 +142,9 @@
                "email":"dummy@yahoo.com"
             }
          ],
-         "reply_to":{  
+         "reply_to":[{  
             "email":"replies@communications.yahoo.com"
-         }
+         }]
       },
       "sources":[  
          {  
@@ -186,9 +186,9 @@
                "name":"myemail@gmail.com"
             }
          ],
-         "reply_to":{  
+         "reply_to":[{  
             "email":"dummy@yahoo.com"
-         }
+         }]
       },
       "sources":[  
          {  
@@ -226,9 +226,9 @@
                "email":"dummy@yahoo.com"
             }
          ],
-         "reply_to":{  
+         "reply_to":[{  
             "email":"replies@communications.yahoo.com"
-         }
+         }]
       },
       "sources":[  
          {  

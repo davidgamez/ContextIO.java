@@ -13,7 +13,7 @@ public class EmailAddresses {
     private EmailAddress[] to;
     private EmailAddress[] cc;
     private EmailAddress[] bcc;
-    private EmailAddress replyTo;
+    private EmailAddress[] replyTo;
     
     /**
      * @return the from
@@ -70,20 +70,19 @@ public class EmailAddresses {
     public void setBcc(EmailAddress[] bcc) {
         this.bcc = bcc;
     }
-    
+
     /**
      * @return the replyTo
      */
-    public EmailAddress getReplyTo() {
+    public EmailAddress[] getReplyTo() {
         return replyTo;
     }
-    
+
     /**
      * @param replyTo the replyTo to set
      */
-    public void setReplyTo(EmailAddress replyTo) {
+    public void setReplyTo(EmailAddress[] replyTo) {
         this.replyTo = replyTo;
     }
-    
     
 }
