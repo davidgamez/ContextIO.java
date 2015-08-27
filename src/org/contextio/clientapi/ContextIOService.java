@@ -130,6 +130,22 @@ public class ContextIOService extends ContextIO {
 	return getListFromResponse(response, EmailMessage.class);
     }
 
+    /**
+     * 
+     * @param accountId account identifier 
+     * @param messageId message identifier
+     * @return email message associated with <code>messageId</code>
+     * @throws Exception
+     */
+    public EmailMessage getMessage(String accountId, String messageId) throws Exception{
+	String action = MessageFormat.format("accounts/{0}/messages/{1}", accountId, messageId);
+	Map<String, String> params = new HashMap<String, String>();
+	ContextIOResponse response = get(accountId, action, params);
+	
+	JsonElement jsonSource = response.getJson().getAsJsonObject();
+	return gson.fromJson(jsonSource, EmailMessage.class);
+    }
+
     public EmailMessageFullBody getEmailFullBody(String accountId, String messageId, String type) throws Exception{
 	String action = MessageFormat.format("accounts/{0}/messages/{1}/body", accountId, messageId);
 	if (StringUtils.isNotBlank(type)){
