@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.contextio.common.Account;
 import org.contextio.common.AccountSource;
 import org.contextio.common.AccountSourceStatus;
+import org.contextio.common.EmailFolder;
 import org.contextio.common.EmailMessage;
 import org.contextio.common.EmailMessageBodyPart;
 import org.contextio.common.EmailMessageFilter;
@@ -130,6 +131,29 @@ public class ContextIOService extends ContextIO {
 	return getListFromResponse(response, EmailMessage.class);
     }
 
+    /**
+     * 
+     * @param accountId account identifier 
+     * @param filterParams filters
+     * @return the list of folders associated with the account and the source
+     * @throws Exception
+     */
+    public List<EmailFolder> getFolders(String accountId, String accountSourceLabel, Map<EmailMessageFilter, String> filterParams) throws Exception{
+	if (StringUtils.isEmpty(accountSourceLabel)){
+	    accountSourceLabel = "0";
+	}
+	String action = MessageFormat.format("accounts/{0}/sources/{1}/folders", accountId, accountSourceLabel);
+	Map<String, String> params = new HashMap<String, String>();
+	if (filterParams != null){
+	    for (Entry<EmailMessageFilter, String> filterParam: filterParams.entrySet()){
+		params.put(filterParam.getKey().getFilterName(), filterParam.getValue());
+	    }
+	}
+	ContextIOResponse response = get(accountId, action, params);
+	
+	return getListFromResponse(response, EmailFolder.class);
+    }
+    
     /**
      * 
      * @param accountId account identifier 
