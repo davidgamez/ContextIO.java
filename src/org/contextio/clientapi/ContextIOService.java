@@ -137,9 +137,14 @@ public class ContextIOService extends ContextIO {
      * @return email message associated with <code>messageId</code>
      * @throws Exception
      */
-    public EmailMessage getMessage(String accountId, String messageId) throws Exception{
+    public EmailMessage getMessage(String accountId, String messageId, Map<EmailMessageFilter, String> filterParams) throws Exception{
 	String action = MessageFormat.format("accounts/{0}/messages/{1}", accountId, messageId);
 	Map<String, String> params = new HashMap<String, String>();
+	if (filterParams != null){
+	    for (Entry<EmailMessageFilter, String> filterParam: filterParams.entrySet()){
+		params.put(filterParam.getKey().getFilterName(), filterParam.getValue());
+	    }
+	}
 	ContextIOResponse response = get(accountId, action, params);
 	
 	JsonElement jsonSource = response.getJson().getAsJsonObject();
