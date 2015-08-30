@@ -16,6 +16,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.contextio.common.Account;
 import org.contextio.common.AccountSource;
+import org.contextio.common.AccountSourceDiscover;
 import org.contextio.common.AccountSourceStatus;
 import org.contextio.common.EmailFolder;
 import org.contextio.common.EmailMessage;
@@ -201,6 +202,23 @@ public class ContextIOService extends ContextIO {
 	    result.setType(bodyParts.get(0).getType());
 	}
 	return result;
+    }
+
+    /**
+     * 
+     * @param email to discover congifuration parameters
+     * @return the {@link AccountSourceDiscover} with servers related information if it's available 
+     * @throws Exception
+     */
+    public AccountSourceDiscover discoverAccoutSource(String email) throws Exception{
+	Map<String, String> params = new HashMap<String, String>();
+	params.put("email", email);
+	params.put("source_type", "IMAP");
+	
+	ContextIOResponse response = get("", "discovery", params);
+	
+	JsonElement jsonSource = response.getJson().getAsJsonObject();
+	return gson.fromJson(jsonSource, AccountSourceDiscover.class);
     }
     
     /**
